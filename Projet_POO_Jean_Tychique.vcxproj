@@ -123,7 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cellule.cpp" />
     <ClCompile Include="Projet_POO_Jean_Tychique.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cellule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
