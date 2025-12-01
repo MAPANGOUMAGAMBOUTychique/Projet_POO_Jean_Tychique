@@ -105,7 +105,7 @@ void renderGrid(sf::RenderWindow& window, int gridWidth, int gridHeight,int cell
 	for (x = 0; x < gridWidth; x++) {
 		for (y = 0; y < gridHeight; y++) {
 			if (dynamic_cast<CelluleVivante*>(grid->getCellule(x, y)) != nullptr) {
-				cell.setPosition(x * cellSize, y * cellSize);
+				cell.setPosition(y * cellSize, x * cellSize);
 				window.draw(cell);
 			}
 		}
