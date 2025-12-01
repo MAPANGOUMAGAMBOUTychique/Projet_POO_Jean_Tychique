@@ -15,7 +15,6 @@ const int cellSize = 10;
 int main()
 {
 	
-	
 	ifstream fichier("test_.txt", ios::in);
 	int ndlignes, nbcolonnes;
 
