@@ -14,11 +14,13 @@ private :
 	Cellule*** grille;
 public:
 	Grille(int nbLignes, int nbColonnes);
+	Grille(const Grille& other);
 	~Grille();
 	Cellule* getCellule(int x, int y) const;
 	void setCellule(int x, int y, Cellule* cellule);
 	int getNbLignes() const;
 	int getNbColonnes() const;
+	bool operator ==(Grille grille);
 	void afficherGrille() const;
 };
 

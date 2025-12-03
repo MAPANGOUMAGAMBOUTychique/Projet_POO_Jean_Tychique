@@ -23,6 +23,10 @@ Grille* Jeu::incrementerGeneration() {
 					if (x == 0 && y == 0) continue; // Ignorer la cellule elle-même
 					int voisinX = i + x;
 					int voisinY = j + y;
+					if (voisinX == -1) voisinX = grille->getNbLignes() - 1;
+					if (voisinY == -1) voisinY = grille->getNbColonnes() - 1;
+					if (voisinX == grille->getNbLignes()) voisinX = 0;
+					if (voisinY == grille->getNbColonnes()) voisinY = 0;
 					if (voisinX >= 0 && voisinX < grille->getNbLignes() &&
 						voisinY >= 0 && voisinY < grille->getNbColonnes()) {
 						if (dynamic_cast<CelluleVivante*>(grille->getCellule(voisinX, voisinY)) != nullptr) {

@@ -13,6 +13,31 @@ Grille::Grille(int nbLignes, int nbColonnes) : nbLignes(nbLignes), nbColonnes(nb
 	}
 }
 
+Grille::Grille(const Grille& other) : nbLignes(other.nbLignes), nbColonnes(other.nbColonnes)
+{
+	grille = new Cellule**[nbLignes];
+	for (int i = 0; i < nbLignes; i++)
+	{
+		grille[i] = new Cellule*[nbColonnes];
+		for (int j = 0; j < nbColonnes; j++)
+		{
+			Cellule* cellule = other.getCellule(i, j);
+			if (dynamic_cast<CelluleVivante*>(cellule) != nullptr)
+			{
+				grille[i][j] = new CelluleVivante(i, j);
+			}
+			else if (dynamic_cast<CelluleObstacle*>(cellule) != nullptr)
+			{
+				grille[i][j] = new CelluleObstacle(i, j);
+			}
+			else
+			{
+				grille[i][j] = new CelluleMorte(i, j);
+			}
+		}
+	}
+}
+
 Grille::~Grille()
 {
 	for (int i = 0; i < nbLignes; i++)
@@ -47,6 +72,16 @@ int Grille::getNbColonnes() const
 	return nbColonnes;
 }
 
+bool Grille::operator ==(Grille grille) {
+	for (int i = 0; i < nbLignes; i++) {
+		for (int j = 0; j < nbColonnes; j++) {
+			if (getCellule(i, j) != grille.getCellule(i, j)) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 void Grille::afficherGrille() const
 {
