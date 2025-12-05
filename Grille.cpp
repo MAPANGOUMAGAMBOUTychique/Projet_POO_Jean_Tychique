@@ -38,6 +38,31 @@ Grille::Grille(const Grille& other) : nbLignes(other.nbLignes), nbColonnes(other
 	}
 }
 
+void Grille::initialiseGrille(std::ifstream& fichier)
+{
+    for (int i = 0; i < nbLignes; i++)
+    {
+        for (int j = 0; j < nbColonnes; j++)
+        {
+            char caractere;
+            fichier >> std::ws >> caractere; // Ajout de std::ws pour ignorer les espaces blancs
+            if (caractere == '1')
+            {
+                setCellule(i, j, new CelluleVivante(i, j));
+            }
+            else if (caractere == 'X')
+            {
+                setCellule(i, j, new CelluleObstacle(i, j));
+            }
+            else
+            {
+                setCellule(i, j, new CelluleMorte(i, j));
+            }
+        }
+    }
+}
+
+
 Grille::~Grille()
 {
 	for (int i = 0; i < nbLignes; i++)

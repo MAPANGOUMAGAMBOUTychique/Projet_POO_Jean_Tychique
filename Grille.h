@@ -4,6 +4,7 @@
 #include "CelluleVivante.h"
 #include "CelluleObstacle.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 class Grille
@@ -16,6 +17,7 @@ public:
 	Grille(int nbLignes, int nbColonnes);
 	Grille(const Grille& other);
 	~Grille();
+	void initialiseGrille(std::ifstream& fichier);
 	Cellule* getCellule(int x, int y) const;
 	void setCellule(int x, int y, Cellule* cellule);
 	int getNbLignes() const;
@@ -23,4 +25,5 @@ public:
 	bool operator ==(Grille grille);
 	void afficherGrille() const;
 };
+
 
