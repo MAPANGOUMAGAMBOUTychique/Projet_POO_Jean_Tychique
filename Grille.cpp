@@ -101,18 +101,6 @@ int Grille::getNbColonnes() const
 	return nbColonnes;
 }
 
-//bool Grille::operator ==(Grille grille) {
-//	for (int i = 0; i < nbLignes; i++) {
-//		for (int j = 0; j < nbColonnes; j++) {
-//			if (getCellule(i, j) != grille.getCellule(i, j)) {
-//				return false;
-//			}
-//		}
-//	}
-//	return true;
-//}
-
-
 bool Grille::operator==(const Grille& other) const {
 	if (getNbLignes() != other.getNbLignes() || getNbColonnes() != other.getNbColonnes())
 		return false;
@@ -129,8 +117,6 @@ bool Grille::operator==(const Grille& other) const {
 				// comparer le type dynamique
 				if (typeid(*a) != typeid(*b))
 					return false;
-
-				// si vous devez comparer d'autres propriétés (ex: état interne), ajoutez-les ici
 			}
 		}
 	}
