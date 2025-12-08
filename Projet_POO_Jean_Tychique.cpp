@@ -20,12 +20,14 @@ int main()
 	}
 	
 	int nblignes, nbcolonnes;
-	fichier >> nblignes >> nbcolonnes;
+	
 	//Vérifions si le format attendue est respectée
+	fichier >> nblignes >> nbcolonnes;
 	for (char c; fichier.get(c); ) {
 		if (!(c == '0' || c == '1' || c == 'X' || c == '\n' || c == ' ')) {
 			cout << "Format du fichier incorrect ! Veuillez respecter le format attendu." << endl;
 			exit(1);
+			
 		}
 	}
 
@@ -56,17 +58,17 @@ int main()
 		cin >> iterations;
 		cout << "Periode d'evolution en second (ex: 0.5, 1, 3..) ? ";
 		cin >> periode;
+		cout << "Mode graphique lance !" << endl;
 		jeu.modeGraphique(iterations, periode);
-		cout << "Mode graphique lancé !" << endl;
 		
 	}
 	else if (mode == 'T') {
 		string nomFichInitial, nomFichAttendu;
-		cout << "Saisissez le chemin du fichier initial (ex : fich_initial.txt) : " << endl;
-		cin >> nomFichInitial;
-		cout << "Saisissez le chemin du fichier attendu (ex : fich_attendu.txt) : " << endl;
+		nomFichInitial = nomfichier + ".txt";
+		cout << "Saisissez le chemin du fichier attendu (ex : fich_attendu) : ";
 		cin >> nomFichAttendu;
-		cout << "Combien de générations voulez-vous pour le test unitaire ? " << endl;
+		nomFichAttendu += ".txt";
+		cout << "Combien de générations voulez-vous pour le test unitaire ? ";
 		cin >> iterations;
 		jeu.testUnitaire(nomFichInitial, nomFichAttendu, iterations);
 	}

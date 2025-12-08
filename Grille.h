@@ -22,7 +22,8 @@ public:
 	void setCellule(int x, int y, Cellule* cellule);
 	int getNbLignes() const;
 	int getNbColonnes() const;
-	bool operator ==(Grille grille);
+	//bool operator ==(Grille grille);
+	bool operator==(const Grille& other) const;
 	void afficherGrille() const;
 };
 

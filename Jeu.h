@@ -3,6 +3,7 @@
 #include <fstream>
 #include "Grille.h"
 #include "SFInterface.h"
+#include <typeinfo>
 class Jeu
 {
 private:

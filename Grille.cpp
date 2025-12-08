@@ -39,7 +39,11 @@ Grille::Grille(const Grille& other) : nbLignes(other.nbLignes), nbColonnes(other
 }
 
 void Grille::initialiseGrille(std::ifstream& fichier)
-{
+{	
+	fichier.clear();
+	fichier.seekg(0);
+	int l, c;
+	fichier >> l >> c;
     for (int i = 0; i < nbLignes; i++)
     {
         for (int j = 0; j < nbColonnes; j++)
@@ -97,11 +101,36 @@ int Grille::getNbColonnes() const
 	return nbColonnes;
 }
 
-bool Grille::operator ==(Grille grille) {
-	for (int i = 0; i < nbLignes; i++) {
-		for (int j = 0; j < nbColonnes; j++) {
-			if (getCellule(i, j) != grille.getCellule(i, j)) {
+//bool Grille::operator ==(Grille grille) {
+//	for (int i = 0; i < nbLignes; i++) {
+//		for (int j = 0; j < nbColonnes; j++) {
+//			if (getCellule(i, j) != grille.getCellule(i, j)) {
+//				return false;
+//			}
+//		}
+//	}
+//	return true;
+//}
+
+
+bool Grille::operator==(const Grille& other) const {
+	if (getNbLignes() != other.getNbLignes() || getNbColonnes() != other.getNbColonnes())
+		return false;
+
+	for (int i = 0; i < getNbLignes(); ++i) {
+		for (int j = 0; j < getNbColonnes(); ++j) {
+			Cellule* a = getCellule(i, j);
+			Cellule* b = other.getCellule(i, j);
+
+			if ((a == nullptr) != (b == nullptr)) // un est null et pas l'autre
 				return false;
+
+			if (a && b) {
+				// comparer le type dynamique
+				if (typeid(*a) != typeid(*b))
+					return false;
+
+				// si vous devez comparer d'autres propriétés (ex: état interne), ajoutez-les ici
 			}
 		}
 	}

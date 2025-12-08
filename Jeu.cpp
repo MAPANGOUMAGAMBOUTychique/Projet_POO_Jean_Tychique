@@ -44,7 +44,7 @@ Grille* Jeu::incrementerGeneration() {
 				} else {
 					nouvelleGrille->setCellule(i, j, new CelluleVivante(i, j)); // Reste vivante
 				}
-			} 
+			}
 			else if (dynamic_cast<CelluleMorte*>(celluleActuelle) != nullptr){
 				// Cellule morte
 				if (nbVoisinsVivants == 3) {
@@ -55,7 +55,7 @@ Grille* Jeu::incrementerGeneration() {
 			}
 			else {
 				// Cellule obstacle ou autre type
-				nouvelleGrille->setCellule(i, j, new CelluleObstacle(1, j)); // Reste inchangée
+				nouvelleGrille->setCellule(i, j, new CelluleObstacle(i, j)); // Reste inchangée
 			}
 		}
 	}
@@ -138,9 +138,11 @@ void Jeu::testUnitaire(string nomFichInitial, string nomFichAttendu, int iterati
 	}
 	int nblignes, nbcolonnes;
 	fichierInitial >> nblignes >> nbcolonnes;
-	Grille* grille = new Grille(nblignes, nbcolonnes);
-	grille->initialiseGrille(fichierInitial);
+	Grille* grilleInitiale = new Grille(nblignes, nbcolonnes);
+	grilleInitiale->initialiseGrille(fichierInitial);
 	fichierInitial.close();
+	delete this->grille;
+	this->grille = grilleInitiale;
 
 	for (int i = 0; i < iterations; i++) {
 		setGrille(incrementerGeneration());
@@ -151,16 +153,18 @@ void Jeu::testUnitaire(string nomFichInitial, string nomFichAttendu, int iterati
 		exit(1);
 	}
 	int nblignesAttendu, nbcolonnesAttendu;
-	fichierAttendu >> nblignesAttendu >> nbcolonnesAttendu;
+	if (!(fichierAttendu >> nblignesAttendu >> nbcolonnesAttendu)) {
+		cout << "Erreur lecture entete fichier attendu" << endl;
+		return;
+	}
 	Grille* grilleAttendue = new Grille(nblignesAttendu, nbcolonnesAttendu);
 	grilleAttendue->initialiseGrille(fichierAttendu);
 	fichierAttendu.close();
-	if (*grille == *grilleAttendue) {
-		cout << "Fichier attendu et fichier obtenu sont identiques. Test unitaire reussi !" << endl;
+	if (*this->grille == *grilleAttendue) {
+		cout << "\nFichier attendu et fichier obtenu sont identiques. Test unitaire reussi !" << endl;
 	}
 	else {
-		cout << "Fichier attendu et fichier obtenu sont differents. Test unitaire echoue !" << endl;
+		cout << "\nFichier attendu et fichier obtenu sont differents. Test unitaire echoue !" << endl;
 	}
-	delete grille;
 	delete grilleAttendue;
 }
